@@ -17,14 +17,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building application..."
-                sh './gradlew clean build' // or mvn, npm, etc.
+                bat './gradlew clean build' // or mvn, npm, etc.
             }
         }
 
         stage('Test') {
             steps {
                 echo "Running tests..."
-                sh './gradlew test' // or your test command
+                bat './gradlew test' // or your test command
             }
             post {
                 always {
@@ -39,7 +39,7 @@ pipeline {
             }
             steps {
                 echo "Deploying ${APP_NAME} to ${DEPLOY_ENV}..."
-                sh './scripts/deploy.sh'
+                bat './scripts/deploy.sh'
             }
         }
     }
