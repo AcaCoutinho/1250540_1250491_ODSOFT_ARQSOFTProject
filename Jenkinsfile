@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                bat 'gradlew clean build'  // ✅ Windows uses bat
+                bat 'gradlew.bat clean build'  // ✅ Windows uses bat
             }
         }
 
