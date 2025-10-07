@@ -1,30 +1,25 @@
 pipeline {
-    agent any  // Run on any available agent/node
-
-    environment {
-        APP_NAME = "library-management"
-        DEPLOY_ENV = "staging"
-    }
+    agent any
 
     stages {
         stage('Checkout') {
             steps {
-                echo "Checking out code..."
+                echo 'Checking out code...'
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo "Building application..."
-                bat './gradlew clean build' // or mvn, npm, etc.
+                echo 'Building application...'
+                bat 'gradlew clean build'  // ✅ Windows uses bat
             }
         }
 
         stage('Test') {
             steps {
-                echo "Running tests..."
-                bat './gradlew test' // or your test command
+                echo 'Running tests...'
+                bat 'gradlew test'  // ✅ Windows uses bat
             }
             post {
                 always {
@@ -38,18 +33,18 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo "Deploying ${APP_NAME} to ${DEPLOY_ENV}..."
-                bat './scripts/deploy.sh'
+                echo 'Deploying...'
+                bat 'scripts\\deploy.bat'  // ✅ or adjust path to your deploy script
             }
         }
     }
 
     post {
         success {
-            echo "Pipeline completed successfully!"
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo "Pipeline failed!"
+            echo 'Pipeline failed!'
         }
     }
 }
